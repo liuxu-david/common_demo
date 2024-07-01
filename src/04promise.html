@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const promise1 = Promise.reject(1)
+    const promise2 = Promise.reject(2)
+    const promise3 = Promise.resolve(3)
+    Promise.all([promise1, promise2, promise3]).then(res => {
+      console.log("all",res)
+    })
+    Promise.race([promise1, promise2, promise3]).then(res => {
+      console.log("race",res)
+    })
+    Promise.any([promise1, promise2, promise3]).then(res => {
+      console.log("any",res)
+    })
+    Promise.allSettled([promise1, promise2, promise3]).then(res => {
+      console.log("allSettled",res)
+    })
+  </script>
+</body>
+</html>
