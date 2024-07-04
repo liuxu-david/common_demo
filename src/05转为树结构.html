@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const linearStructure = [
+      { id: 1, name: "总经理", parentId: null },
+      { id: 2, name: "财务总监", parentId: 1 },
+      { id: 3, name: "技术总监", parentId: 1 },
+      { id: 4, name: "工程部副总", parentId: 3 },
+      { id: 5, name: "软件开发部经理", parentId: 4 },
+      { id: 6, name: "软件工程师", parentId: 5 },
+      { id: 7, name: "质量保证部经理", parentId: 4 },
+      { id: 8, name: "质量保证工程师", parentId: 7 },
+      { id: 9, name: "销售总监", parentId: 3 },
+      { id: 10, name: "销售经理", parentId: 9 },
+      { id: 11, name: "销售团队", parentId: 10 },
+    ];
+    linearStructure.forEach((item) => {
+      item.children = linearStructure.filter((iten) => iten.parentId === item.id);
+    });
+    const rusult = linearStructure.filter((item) => !item.parentId);
+    console.log(rusult);
+
+    function formatTree(arr){
+      const result = [];
+      const map = new Map();
+      arr.forEach(item=>map.set(item.id,{...item,children:[]}));
+
+      arr.forEach(item=>{
+        if(map.has(item.parentId)){
+          map.get(item.parentId).children.push(map.get(item.id))          
+        }else{
+          result.push(map.get(item.id))
+        }
+      })
+      return result;
+    }
+    console.log(formatTree(linearStructure));
+  </script>
+</body>
+</html>
